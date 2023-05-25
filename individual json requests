@@ -1,0 +1,56 @@
+/*
+{
+    "name": "CZero Pen Brand",
+    "variant": "Blue Pen",
+    "sku": "CZPB",
+    "price": 1.00,
+    "qty": 5,
+    "description": "High quality pens that are carbon-neutral"
+}
+
+{
+    "name": "CZero Pen Brand",
+    "variant": "Red Pen",
+    "sku": "CZPR",
+    "price": 1.00,
+    "qty": 5,
+    "description": "High quality pens that are carbon-neutral"
+}
+
+{
+    "name": "CZero Pen Brand",
+    "variant": "Green Pen",
+    "sku": "CZPG",
+    "price": 1.00,
+    "qty": 5,
+    "description": "High quality pens that are carbon-neutral"
+}
+
+{
+    "name": "Red's Pens",
+    "variant": "Black Fountain Pen",
+    "sku": "RPG",
+    "price": 5.00,
+    "qty": 100,
+    "description": "Fountain pens designed by Paul Red"
+}
+
+{
+    "name": "Red's Pens",
+    "variant": "Purple Fountain Pen",
+    "sku": "PRG",
+    "price": 5.00,
+    "qty": 100,
+    "description": "Fountain pens designed by Paul Red"
+}
+
+{
+    "name": "Good Quality Pencil",
+    "variant": "",
+    "sku": "BYP",
+    "price": 0.5,
+    "qty": 1000,
+    "description": "Handmade Pencils"
+}
+
+*/

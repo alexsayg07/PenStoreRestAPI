@@ -1,0 +1,50 @@
+{
+    "name": {
+        "0": "CZero Pen Brand",
+        "1": "CZero Pen Brand",
+        "2": "CZero Pen Brand",
+        "3": "Red's Pens",
+        "4": "Red's Pens",
+        "5": "Good Quality Pencil"
+    },
+    "variant": {
+        "0": "Red Pen",
+        "1": "Blue Pen",
+        "2": "Green Pen",
+        "3": "Black Fountain Pen",
+        "4": "Purple Fountain Pen",
+        "5": ""
+    },
+    "sku": {
+        "0": "CZPR",
+        "1": "CZPB",
+        "2": "CZPG",
+        "3": "RPG",
+        "4": "PRG",
+        "5": "BYP"
+    },
+    "price": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 1.0,
+        "3": 5.0,
+        "4": 5.0,
+        "5": 0.5
+    },
+    "qty": {
+        "0": 5.0,
+        "1": 5.0,
+        "2": 5.0,
+        "3": 100.0,
+        "4": 100.0,
+        "5": 1000.0
+    },
+    "description": {
+        "0": "High quality pens that are carbon-neutral",
+        "1": "High quality pens that are carbon-neutral",
+        "2": "High quality pens that are carbon-neutral",
+        "3": "Fountain pens designed by Paul Red",
+        "4": "Fountain pens designed by Paul Red",
+        "5": "Handmade Pencils"
+    }
+}

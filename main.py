@@ -4,9 +4,8 @@ from typing import Optional
 from odmantic import Field, Model
 import uvicorn
 import pandas as pd
-from models import Product
 
-# Initialize dataframe
+# Initialize inventory dataframe and import inventory from json
 products_data = {"name": [],
                 "variant": [],
                 "sku": [],
@@ -14,12 +13,25 @@ products_data = {"name": [],
                 "qty": [],
                 "description": []}
 products_df = pd.DataFrame(products_data)
+# import inventory information from json file
+df = pd.read_json("inventory.json")
+products_df = products_df.append(df)
+
+# Initialize shopping cart dataframe
+shopping_cart_data = {"name": [],
+                "sku": [],
+                "price": [],
+                "qty": []}
+shopping_cart_df = pd.DataFrame(shopping_cart_data)
+
 
 # Initialize application
 app = FastAPI()
 
 # Define data model using pydantic library
-class Product(BaseModel): # Serializer
+# Define Product BaseModel
+# Serializer
+class Product(BaseModel):
     name: str
     variant: str
     sku: str
@@ -27,6 +39,12 @@ class Product(BaseModel): # Serializer
     qty: int
     description: str
 
+# Define ShoppingCart BaseModel
+class ShoppingCart(BaseModel):
+    name: str
+    sku: str
+    qty: int
+    price: float
 
 @app.get("/")
 async def root():
