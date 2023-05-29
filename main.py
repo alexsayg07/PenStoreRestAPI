@@ -1,9 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from pydantic import BaseModel
-from typing import Optional
-from odmantic import Field, Model
-import uvicorn
 import pandas as pd
+from typing import Union
+import uvicorn
 
 # Initialize inventory dataframe and import inventory from json
 products_data = {"name": [],
@@ -16,6 +15,7 @@ products_df = pd.DataFrame(products_data)
 df = pd.read_json("inventory.json")
 products_df = products_df.append(df)
 
+# Testing dataframe functions
 print(products_df)
 total_items = products_df["qty"].sum()
 print(total_items)
@@ -29,6 +29,7 @@ cart_df = pd.DataFrame(cart_data)
 
 # Initialize application
 app = FastAPI()
+
 
 # Define data model using pydantic library
 # Define Product BaseModel
@@ -47,6 +48,7 @@ class Cart(BaseModel):
     qty: int
     price: float
 
+# Testing root
 @app.get("/")
 async def root():
     return {"Hello": "World!!"}
@@ -59,7 +61,7 @@ def get_inventory():
 
 # return all shopping cart
 @app.get("/cart")
-def get_inventory():
+def get_cart():
     global cart_df
     return cart_df
 
@@ -153,5 +155,11 @@ def add_to_cart(product: Product):
     return{"message": msg}
 
 
-# Global Search
-#@app.get('/products?q={searchQuery}')
+# Global Search with keyword
+# async endpoint for search function
+@app.get('/search/{keyword}')
+async def global_search(keyword: str):
+    global products_df
+    if keyword:
+        return products_df[products_df.apply(lambda row: row.astype(str).str.contains(keyword, case=False).any(), axis=1)]
+# TODO return preview when no keyword is passed
