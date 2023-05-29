@@ -13,16 +13,18 @@ products_data = {"name": [],
                 "qty": [],
                 "description": []}
 products_df = pd.DataFrame(products_data)
-# import inventory information from json file
 df = pd.read_json("inventory.json")
 products_df = products_df.append(df)
 
+print(products_df)
+total_items = products_df["qty"].sum()
+print(total_items)
+
 # Initialize shopping cart dataframe
-shopping_cart_data = {"name": [],
-                "sku": [],
-                "price": [],
-                "qty": []}
-shopping_cart_df = pd.DataFrame(shopping_cart_data)
+cart_data = {"sku": [],
+             "qty": [],
+             "price": []}
+cart_df = pd.DataFrame(cart_data)
 
 
 # Initialize application
@@ -39,9 +41,8 @@ class Product(BaseModel):
     qty: int
     description: str
 
-# Define ShoppingCart BaseModel
-class ShoppingCart(BaseModel):
-    name: str
+# Define Cart BaseModel for future implementation for multiple users
+class Cart(BaseModel):
     sku: str
     qty: int
     price: float
@@ -55,6 +56,12 @@ async def root():
 def get_inventory():
     global products_df
     return products_df
+
+# return all shopping cart
+@app.get("/cart")
+def get_inventory():
+    global cart_df
+    return cart_df
 
 # Add a new product
 # send product details in request body
@@ -123,7 +130,28 @@ def delete_product(product_id: str):
 
 # Buy Product (Shopping Cart)
 # Send product IDs and quantities in the request body
-#@app.post("/cart/buy") # POST /cart/buy
+# return cart summary and total cost
+# TODO: Update input to only be product_id (sku) and quantity
+@app.post("/cart/buy")
+def add_to_cart(product: Product):
+    global cart_df
+    # check if sku already in cart and add to quantity
+    # if not create new cart_product
+    cart_index = cart_df.index[cart_df['sku'] == product.sku].tolist()
+    if not cart_index:
+        cart_product = {"sku": product.sku,
+                        "qty": product.qty,
+                        "price": product.price}
+        cart_df = cart_df.append(cart_product, ignore_index=True)
+    else:
+        cart_df.loc[cart_index[0], "qty"] += product.qty
+
+    # summarize cart total and number of items
+    num_items = cart_df["qty"].sum()
+    total = (cart_df["qty"] * cart_df["price"]).sum()
+    msg = "Cart total: $" + str(total) + " for " + str(num_items) + " items."
+    return{"message": msg}
+
 
 # Global Search
 #@app.get('/products?q={searchQuery}')
